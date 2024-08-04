@@ -18,7 +18,7 @@ const Home = () => {
 
   return (
     <div className="bg-bl w-[100vw] h-[100vh] relative">
-      <div className="flex flex-col items-center justify-center h-full gap-5 ">
+      <div className="flex flex-col items-center justify-center h-full gap-5">
         <Image
           onClick={handleClick}
           src={"/assets/icons/donald.png"}

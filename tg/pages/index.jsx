@@ -1,3 +1,8 @@
-export default function Main() {
-  return <div className="">Hello world</div>;
-}
+// pages/index.jsx
+import React from "react";
+
+const Home = () => {
+  return <div>Hello world</div>;
+};
+
+export default Home;

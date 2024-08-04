@@ -1,0 +1,2223 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  :root {
+    --color-bkg: 0deg 0% 100%;
+    --color-bl: 224deg 20% 19%;
+    --color-log-bkg: 0deg 0% 96%;
+    --color-light-gr: 221deg 13% 46%;
+    --color-graphite: 221deg 13% 46%;
+    --color-light-border: 61deg 17% 93%;
+    --color-transpdiv: hsla(0, 0%, 100%, 0.5);
+    --color-root-green: 147deg 64% 39%;
+    --color-root-red: 355deg 83% 66%;
+    --color-root-yellow: 40deg 86% 50%;
+
+    --color-root-gr: 0deg 0% 60%;
+  }
+}
+html,
+body {
+  height: 100%;
+  margin: 0;
+  padding: 0;
+  @apply !bg-log-bkg;
+}
+:root[data-theme="dark"] {
+  --color-bkg: 0deg 0% 15%;
+
+  --color-root-yellow: 40deg 100% 50%;
+
+  --color-bl: 0deg 0% 100%;
+  --color-log-bkg: 0deg 0% 9%;
+  --color-light-gr: 221deg 13% 70%;
+  --color-graphite: 220deg 14% 62%;
+  --color-light-border: 221deg 13% 46%;
+  --color-transpdiv: hsla(0, 0%, 7%, 0.5);
+  --color-root-green: 147deg 62% 52%;
+  --color-root-red: 355deg 95% 60%;
+
+  --color-root-gr: 0deg 0% 56%;
+}
+
+:root[data-theme="dark"] .white-svg {
+  filter: invert(100%) sepia(100%) saturate(0%) hue-rotate(360deg)
+    brightness(200%) contrast(100%);
+}
+
+.spinner-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  @apply bg-bkg bg-opacity-75; /* Adjust the opacity value as needed */
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 1000; /* Ensure it's above other elements */
+  opacity: 1;
+  transition: opacity 0.5s ease; /* Smooth transition for opacity */
+}
+.crypto-icons {
+  list-style: none;
+  padding: 0;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.crypto-icons li {
+  margin-left: -5px; /* Adjust this value to control the overlap */
+}
+
+.crypto-icons li:first-child {
+  margin-left: 0; /* No overlap for the first icon */
+}
+
+.crypto-icons img {
+  border-radius: 50%; /* Make the icons circular */
+  @apply border-2 border-bkg;
+  box-shadow: 0 0 5px rgba(0, 0, 0, 0.1); /* Optional: Add a subtle shadow */
+}
+.spinner-overlay.hidden {
+  opacity: 0;
+}
+
+.spinner {
+  width: 100px; /* Adjust the size as needed */
+  height: 100px; /* Adjust the size as needed */
+}
+.spinner {
+  transition: opacity 0.5s ease-out;
+  opacity: 1;
+}
+
+.spinner-hidden {
+  opacity: 0;
+  visibility: hidden;
+}
+.spinner img {
+  width: 100%;
+  height: 100%;
+  animation: spinImpulse 2s infinite;
+}
+.steplist {
+  border-top: 2px solid #ccc;
+  display: inline-flex;
+  list-style-type: none;
+  gap: 7em;
+  margin: 0;
+  padding: 0;
+  --circle-radius: 12px;
+}
+
+.steplist li {
+  color: #999;
+  cursor: pointer;
+  padding: calc(5px + var(--circle-radius)) 0 0;
+  margin: 0;
+  position: relative;
+  text-align: center;
+}
+button.bg-root-green:hover {
+  opacity: 0.8;
+}
+button.bg-root-green-8:hover {
+  background-color: hsla(
+    147.4,
+    64.5%,
+    38.6%,
+    0.2
+  ); /* Green color with 20% opacity */
+}
+.steplist li::before {
+  background-color: #ccc;
+  border-radius: 50%;
+  content: "";
+  position: absolute;
+  height: calc(2 * var(--circle-radius));
+  width: calc(2 * var(--circle-radius));
+  top: 0;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  transition: all 0.3s ease;
+}
+
+.steplist li::after {
+  content: "";
+  position: absolute;
+  top: 50%;
+  width: 100%;
+  height: 2px;
+  background-color: #ccc;
+  z-index: -1;
+  left: 50%;
+  transform: translateX(-50%);
+  background: linear-gradient(to right, green 50%, #ccc 50%);
+}
+
+.steplist li.active::after {
+  background: linear-gradient(to right, green 100%, #ccc 0%);
+}
+
+.steplist li:first-child::after,
+.steplist li:last-child::after {
+  width: 50%;
+}
+
+.steplist .active {
+  color: black;
+}
+
+.steplist .active::before {
+  background-color: green;
+  box-shadow: 0 0 0 3px rgba(0, 255, 0, 0.25);
+}
+
+.steplist li:first-child::before,
+.steplist li:last-child::before {
+  border: none;
+}
+
+@keyframes spinImpulse {
+  0% {
+    transform: rotate(0deg);
+  }
+  20% {
+    transform: rotate(90deg);
+  }
+  40% {
+    transform: rotate(180deg);
+  }
+  50% {
+    transform: rotate(170deg);
+  }
+  70% {
+    transform: rotate(270deg);
+  }
+  80% {
+    transform: rotate(260deg);
+  }
+  100% {
+    transform: rotate(360deg);
+  }
+}
+
+.fade-in {
+  animation: fadeIn 0.5s forwards;
+}
+
+.fade-out {
+  animation: fadeOut 0.5s forwards;
+}
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+
+@keyframes fadeOut {
+  from {
+    opacity: 1;
+  }
+  to {
+    opacity: 0;
+  }
+}
+
+/* Add your custom logo */
+#custom-logo {
+  position: absolute;
+  bottom: 10px;
+  left: 10px;
+  z-index: 1000;
+  width: 40px; /* Adjust size as needed */
+  height: auto;
+}
+.fade-in {
+  opacity: 0;
+  transform: scale(0.9);
+  animation: fadeIn 0.3s ease forwards;
+}
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: scale(0.9);
+  }
+  to {
+    opacity: 1;
+    transform: scale(1);
+  }
+}
+
+.transpdiv {
+  background-color: var(--color-transpdiv);
+}
+
+.loader-container {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  display: flex;
+  @apply bg-bkg;
+  align-items: center;
+  justify-content: center;
+  z-index: 9999; /* Ensure it overlays everything */
+  transition: opacity 0.5s ease;
+  opacity: 1;
+}
+#amount-tooltip {
+  @apply w-[240px] bg-bkg text-bl rounded-lg text-xs font-semibold;
+}
+.toggle-container {
+  display: flex;
+  align-items: center;
+  @apply bg-bkg;
+  border-radius: 25px;
+  width: 200px; /* Adjust the width to your preference */
+  justify-content: space-between;
+  position: relative;
+  height: 40px; /* Set a fixed height */
+}
+.toggle-container-login {
+  display: flex;
+  align-items: center;
+  @apply bg-log-bkg rounded-full;
+  justify-content: space-between;
+  position: relative;
+  height: 30px;
+}
+.toggle-option-login {
+  flex: 1;
+  text-align: center;
+  cursor: pointer;
+  z-index: 1;
+  @apply p-1 text-sm font-medium bg-log-bkg text-gr rounded-full h-[30px];
+  user-select: none;
+}
+.toggle-option-login.active {
+  @apply text-bkg bg-root-green h-[30px] rounded-full;
+}
+input:-webkit-autofill,
+input:-webkit-autofill:hover,
+input:-webkit-autofill:focus,
+input:-webkit-autofill:active {
+  -webkit-box-shadow: 0 0 0 30px hsl(var(--color-log-bkg)) inset !important; /* Use CSS variable for background color */
+  -webkit-text-fill-color: hsl(
+    var(--color-bl)
+  ) !important; /* Use CSS variable for text color */
+}
+.custom-google-btn {
+  background-color: #4285f4; /* Google blue color */
+  color: white;
+  font-size: 16px;
+  padding: 10px 20px;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.toggle-slider-login {
+  position: absolute;
+  width: 50%;
+  height: 100%;
+  @apply bg-bkg rounded-full;
+
+  border-radius: 25px;
+  transition: transform 0.3s ease;
+  box-sizing: border-box; /* Ensure padding and border are included in the height and width */
+}
+.toggle-option {
+  flex: 1;
+  text-align: center;
+  cursor: pointer;
+  padding: 10px 0; /* Adjust the padding to fit your desired height */
+  z-index: 1;
+  user-select: none; /* Prevent text selection on click */
+}
+
+.toggle-option.active {
+  color: #23a25d;
+}
+
+.toggle-slider {
+  position: absolute;
+  width: 50%; /* Adjust width if needed */
+  height: 100%; /* Ensure the slider fits within the container's padding */
+  @apply bg-bkg;
+  border: 1px solid #23a25d;
+  border-radius: 25px;
+  transition: transform 0.3s ease;
+  box-sizing: border-box; /* Ensure padding and border are included in the height and width */
+}
+.toggle-container-time {
+  display: flex;
+  align-items: center;
+  @apply bg-log-bkg;
+  border-radius: 25px;
+  width: 300px; /* Adjust the width to your preference */
+  position: relative;
+  height: 40px; /* Set a fixed height */
+}
+.toggle-container-market {
+  display: flex;
+  align-items: center;
+  @apply bg-log-bkg;
+  border-radius: 16px;
+  width: 211px; /* Adjust the width to your preference */
+  position: relative;
+  height: 34px; /* Set a fixed height */
+}
+.toggle-option-market {
+  flex: 1;
+  @apply text-sm rounded-[14px] py-2 font-medium text-[#999999] w-1/2 h-[34px];
+  text-align: center;
+  cursor: pointer;
+  z-index: 1;
+  user-select: none; /* Prevent text selection on click */
+}
+.toggle-option-market.active {
+  @apply text-bkg bg-root-green h-[34px];
+}
+.toggle-slider-market {
+  position: absolute;
+  width: 50%; /* Adjust width based on the number of options */
+  height: 34px; /* Ensure the slider fits within the container's padding */
+  border-radius: 25px;
+  transition: transform 0.3s ease;
+  box-sizing: border-box; /* Ensure padding and border are included in the height and width */
+}
+.toggle-container-buysell {
+  display: flex;
+  align-items: center;
+  @apply bg-log-bkg;
+  border-radius: 16px;
+  width: 202px; /* Adjust the width to your preference */
+  position: relative;
+  height: 34px; /* Set a fixed height */
+}
+.toggle-option-buysell {
+  flex: 1;
+  @apply text-sm rounded-[14px] py-2 font-medium text-[#999999] w-1/2 h-[34px];
+  text-align: center;
+  cursor: pointer;
+  z-index: 1;
+  user-select: none; /* Prevent text selection on click */
+}
+.toggle-option-buysell.active {
+  @apply text-bkg bg-root-green h-[34px] w-1/2;
+}
+.toggle-option-sell.active {
+  @apply text-bkg bg-root-red h-[34px] w-1/2;
+}
+.underline-effect {
+  position: relative;
+  display: inline-block;
+}
+
+.underline-effect::after {
+  content: "";
+  position: absolute;
+  width: 100%;
+  height: 3px;
+  @apply bg-root-green rounded-t-[2px];
+  bottom: -2px;
+  left: 0;
+  opacity: 0;
+  transition: opacity 0.2s ease-in-out;
+}
+
+.underline-effect.active::after {
+  opacity: 1;
+}
+
+.toggle-option-sell {
+  flex: 1;
+  @apply text-sm rounded-[14px] py-2 font-medium text-[#999999] w-1/2 h-[34px];
+  text-align: center;
+  cursor: pointer;
+  z-index: 1;
+  user-select: none; /* Prevent text selection on click */
+}
+.toggle-slider-buysell {
+  position: absolute;
+  width: 50%; /* Adjust width based on the number of options */
+  height: 34px; /* Ensure the slider fits within the container's padding */
+  border-radius: 25px;
+  transition: transform 0.3s ease;
+  box-sizing: border-box; /* Ensure padding and border are included in the height and width */
+}
+.toggle-container-chart {
+  display: flex;
+  align-items: center;
+  @apply bg-log-bkg;
+  border-radius: 16px;
+  width: 202px; /* Adjust the width to your preference */
+  position: relative;
+  height: 34px; /* Set a fixed height */
+}
+.toggle-option-chart {
+  flex: 1;
+  @apply text-sm rounded-[14px] py-2 font-medium text-[#999999] w-1/2 h-[34px];
+  text-align: center;
+  cursor: pointer;
+  z-index: 1;
+  user-select: none; /* Prevent text selection on click */
+}
+.toggle-option-chart.active {
+  @apply text-bkg bg-root-green h-[34px] w-1/2;
+}
+.toggle-slider-chart {
+  position: absolute;
+  width: 50%; /* Adjust width based on the number of options */
+  height: 34px; /* Ensure the slider fits within the container's padding */
+  border-radius: 25px;
+  transition: transform 0.3s ease;
+  box-sizing: border-box; /* Ensure padding and border are included in the height and width */
+}
+.toggle-option-time {
+  flex: 1;
+  @apply text-sm;
+  transition: ease-in-out all 0.4s;
+  text-align: center;
+  cursor: pointer;
+  padding: 10px 0; /* Adjust the padding to fit your desired height */
+  z-index: 1;
+  user-select: none; /* Prevent text selection on click */
+}
+.toggle-option-time-red {
+  flex: 1;
+  @apply text-sm;
+  transition: ease-in-out all 0.4s;
+  text-align: center;
+  cursor: pointer;
+  padding: 10px 0; /* Adjust the padding to fit your desired height */
+  z-index: 1;
+  user-select: none; /* Prevent text selection on click */
+}
+
+.custom-tooltip {
+  background-color: #23a25d !important; /* Custom background color */
+}
+
+.custom-tooltip::after {
+  border-top-color: #23a25d !important; /* Custom background color for the arrow */
+  border-bottom-color: #23a25d !important; /* Custom background color for the arrow */
+}
+
+.toggle-option-time.active {
+  @apply text-root-green bg-white text-sm border border-root-green rounded-full font-medium;
+}
+.toggle-option-time-red.active {
+  @apply !text-root-red bg-white text-sm border !border-root-red rounded-full font-medium;
+}
+.toggle-slider-time {
+  position: absolute;
+  width: 16.66%; /* Adjust width based on the number of options */
+  height: 100%; /* Ensure the slider fits within the container's padding */
+  @apply bg-bkg border border-log-bkg;
+  border-radius: 25px;
+  transition: transform 0.3s ease;
+  box-sizing: border-box; /* Ensure padding and border are included in the height and width */
+}
+.slider-container {
+  width: 100%;
+  padding: 20px;
+  position: relative;
+}
+
+.custom-slider {
+  width: 100%;
+  height: 20px;
+  position: relative;
+  display: flex;
+  align-items: center;
+}
+
+.custom-track {
+  @apply bg-log-bkg;
+  height: 10px;
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+
+  width: 100%;
+  @apply rounded-[4px];
+
+  pointer-events: none;
+}
+
+.custom-track-active {
+  background: #23a25d;
+  height: 10px;
+  position: absolute;
+  top: 50%;
+  @apply rounded-l-[4px];
+  transform: translateY(-50%);
+  pointer-events: none;
+}
+
+.custom-thumb {
+  height: 16px;
+  width: 16px;
+  @apply rounded-full !bg-log-bkg !text-log-bkg !bg-opacity-100 !border-root-green border-[2px] outline-none cursor-pointer;
+  z-index: 1000 !important;
+  background-color: transparent;
+}
+
+.custom-mark {
+  height: 6px;
+  width: 6px;
+  transition: all 0.2s ease-in-out;
+  background-color: rgba(143, 143, 143, 0.6);
+  border-radius: 50%;
+  position: absolute;
+  top: 50%;
+  transform: translate(-50%, -50%);
+  z-index: 3;
+}
+
+.custom-mark:hover {
+  height: 12px;
+  width: 12px;
+  cursor: pointer;
+}
+.custom-mark-active {
+  background-color: #23a25d;
+  border: none;
+}
+
+.dropdown-container {
+  display: flex;
+  flex-direction: column;
+  align-items: start;
+  gap: 10px;
+  padding: 20px;
+  font-family: Arial, sans-serif;
+}
+
+select {
+  padding: 10px;
+  border-radius: 5px;
+  border: 1px solid #ccc;
+  font-size: 16px;
+}
+
+.country-details {
+  margin-top: 20px;
+  font-size: 16px;
+}
+.toggle-slider.email {
+  transform: translateX(0);
+}
+.fade-enter {
+  opacity: 0;
+  transform: translateY(-10px);
+}
+.fade-enter-active {
+  opacity: 1;
+  transform: translateY(0);
+  transition: opacity 300ms, transform 300ms;
+}
+.fade-exit {
+  opacity: 1;
+  transform: translateY(0);
+}
+.fade-exit-active {
+  opacity: 0;
+  transform: translateY(10px);
+  transition: opacity 300ms, transform 300ms;
+}
+.toggle-slider.mobile {
+  transform: translateX(calc(100% - 2px)); /* Move 2px more to the right */
+}
+
+.loader-container.hidden {
+  opacity: 0;
+  pointer-events: none; /* Ensure no interaction with hidden loader */
+}
+.start-your {
+  background: linear-gradient(to bottom, #2bc6aa, #23a461);
+}
+
+#finrex-svg {
+  width: 30rem;
+  font-weight: 600;
+}
+
+.confirm-modal-content {
+  @apply bg-bkg;
+  border-radius: 20px;
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.15);
+  z-index: 999;
+  transform: translateY(100%);
+  animation: slide-up 0.2s ease-out forwards;
+  width: 364px;
+  position: relative;
+  box-shadow: 0 4px 20px 0 rgb(0 0 0 / 10%), 0 1px 2px 0 rgb(0 0 0 / 6%);
+  height: 186px;
+}
+
+@keyframes ringAnimation {
+  0% {
+    transform: rotate(0);
+  }
+
+  25% {
+    transform: rotate(20deg);
+  }
+
+  50% {
+    transform: rotate(0);
+  }
+
+  75% {
+    transform: rotate(-20deg);
+  }
+
+  100% {
+    transform: rotate(0);
+  }
+}
+.bike {
+  display: block;
+  margin: auto;
+  width: 16em;
+  height: auto;
+}
+.bike__body,
+.bike__front,
+.bike__handlebars,
+.bike__pedals,
+.bike__pedals-spin,
+.bike__seat,
+.bike__spokes,
+.bike__spokes-spin,
+.bike__tire {
+  animation: bikeBody 3s ease-in-out infinite;
+  stroke: #23a25d;
+  transition: stroke #23a25d;
+}
+.bike__front {
+  animation-name: bikeFront;
+}
+.bike__handlebars {
+  animation-name: bikeHandlebars;
+}
+.bike__pedals {
+  animation-name: bikePedals;
+}
+.bike__pedals-spin {
+  animation-name: bikePedalsSpin;
+}
+.bike__seat {
+  animation-name: bikeSeat;
+}
+.bike__spokes,
+.bike__tire {
+  stroke: #23a25d;
+}
+.bike__spokes {
+  animation-name: bikeSpokes;
+}
+/* Custom styles for the Google button */
+.custom-google-button .google-oauth-button {
+  @apply !bg-log-bkg;
+  width: 52px !important;
+  height: 52px !important;
+  border-radius: 0 !important; /* Make it square */
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.bike__spokes-spin {
+  animation-name: bikeSpokesSpin;
+}
+.bike__tire {
+  animation-name: bikeTire;
+}
+
+/* Dark theme */
+@media (prefers-color-scheme: dark) {
+  :root {
+    --bg: hsl(var(--hue), 90%, 10%);
+    --fg: hsl(var(--hue), 90%, 90%);
+  }
+}
+
+/* Animations */
+@keyframes bikeBody {
+  from {
+    stroke-dashoffset: 79;
+  }
+  33%,
+  67% {
+    stroke-dashoffset: 0;
+  }
+  to {
+    stroke-dashoffset: -79;
+  }
+}
+@keyframes bikeFront {
+  from {
+    stroke-dashoffset: 19;
+  }
+  33%,
+  67% {
+    stroke-dashoffset: 0;
+  }
+  to {
+    stroke-dashoffset: -19;
+  }
+}
+@keyframes bikeHandlebars {
+  from {
+    stroke-dashoffset: 10;
+  }
+  33%,
+  67% {
+    stroke-dashoffset: 0;
+  }
+  to {
+    stroke-dashoffset: -10;
+  }
+}
+@keyframes bikePedals {
+  from {
+    animation-timing-function: ease-in;
+    stroke-dashoffset: -25.133;
+  }
+  33%,
+  67% {
+    animation-timing-function: ease-out;
+    stroke-dashoffset: -21.991;
+  }
+  to {
+    stroke-dashoffset: -25.133;
+  }
+}
+@keyframes bikePedalsSpin {
+  from {
+    transform: rotate(0.1875turn);
+  }
+  to {
+    transform: rotate(3.1875turn);
+  }
+}
+@keyframes bikeSeat {
+  from {
+    stroke-dashoffset: 5;
+  }
+  33%,
+  67% {
+    stroke-dashoffset: 0;
+  }
+  to {
+    stroke-dashoffset: -5;
+  }
+}
+@keyframes bikeSpokes {
+  from {
+    animation-timing-function: ease-in;
+    stroke-dashoffset: -31.416;
+  }
+  33%,
+  67% {
+    animation-timing-function: ease-out;
+    stroke-dashoffset: -23.562;
+  }
+  to {
+    stroke-dashoffset: -31.416;
+  }
+}
+@keyframes bikeSpokesSpin {
+  from {
+    transform: rotate(0);
+  }
+  to {
+    transform: rotate(3turn);
+  }
+}
+@keyframes bikeTire {
+  from {
+    animation-timing-function: ease-in;
+    stroke-dashoffset: 56.549;
+    transform: rotate(0);
+  }
+  33% {
+    stroke-dashoffset: 0;
+    transform: rotate(0.33turn);
+  }
+  67% {
+    animation-timing-function: ease-out;
+    stroke-dashoffset: 0;
+    transform: rotate(0.67turn);
+  }
+  to {
+    stroke-dashoffset: -56.549;
+    transform: rotate(1turn);
+  }
+}
+.sidebar-button {
+  @apply !text-root-green w-full bg-root-green-8 font-medium;
+}
+.sidebar-stick {
+  @apply w-[3px] h-10 bg-root-green rounded-r-[2px];
+}
+.swap-stick {
+  @apply w-[3px] h-10 bg-root-green rounded-r-[2px] opacity-0;
+}
+.swap-drop:hover .swap-stick,
+.swap-stick.selected {
+  opacity: 1 !important;
+}
+.sidebar-button img {
+  filter: invert(50%) sepia(75%) saturate(431%) hue-rotate(95deg)
+    brightness(88%) contrast(91%);
+}
+.green-img {
+  filter: invert(50%) sepia(75%) saturate(431%) hue-rotate(95deg)
+    brightness(88%) contrast(91%);
+}
+button:hover .green-icon {
+  filter: invert(50%) sepia(75%) saturate(431%) hue-rotate(95deg)
+    brightness(88%) contrast(91%);
+}
+button {
+  outline: none !important;
+  box-shadow: none !important;
+}
+
+button::-moz-focus-inner {
+  border: 0;
+}
+
+button img {
+  border: none !important;
+}
+
+.ring {
+  animation: ringAnimation 0.5s ease-in-out;
+}
+
+@keyframes slideOutLeft {
+  from {
+    transform: translateX(0);
+  }
+
+  to {
+    transform: translateX(-100%);
+    opacity: 0;
+  }
+}
+
+.slide-out-left {
+  animation: slideOutLeft 0.5s forwards;
+}
+
+#finrex-svg text {
+  font-size: 5rem;
+  stroke-width: 2;
+  letter-spacing: -6px;
+}
+
+@keyframes animate-stroke {
+  0% {
+    fill: transparent;
+    stroke: #1dbba1;
+    /* Added black as fallback */
+    stroke-width: 3;
+    stroke-dashoffset: 25%;
+    stroke-dasharray: 0 32%;
+  }
+
+  50% {
+    fill: transparent;
+    stroke: #1dbba1;
+    /* Added black as fallback */
+    stroke-width: 3;
+  }
+
+  80%,
+  100% {
+    fill: #23a25d;
+    /* Tailwind color or other */
+    stroke: transparent;
+    stroke-width: 0;
+    stroke-dashoffset: -25%;
+    stroke-dasharray: 32% 0;
+  }
+}
+
+svg text.text-body {
+  stroke: #1dbba1;
+  /* Added black as fallback */
+  animation: 4s infinite alternate animate-stroke;
+}
+
+.activeRound {
+  scale: 1.6;
+  background-color: #23a25d;
+  transition: scale 0.4s ease-in-out, color 0.4s ease-in-out,
+    background-color 0.4s ease-in-out;
+}
+
+.activeRound span {
+  color: white;
+}
+
+.fadeIn {
+  opacity: 1;
+  transition: opacity 0.5s ease-in;
+}
+
+.dashboard-table thead tr th {
+  @apply text-graphite text-xs text-left font-normal h-[60px];
+}
+
+.slider1 {
+  position: absolute;
+  cursor: pointer;
+  inset: 0;
+  background: #d1d8e1;
+  border-radius: 50px;
+  transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+}
+.track-horizontal,
+.track-vertical {
+  background: black;
+}
+
+.thumb-horizontal,
+.thumb-vertical {
+  background-color: black;
+  border-radius: 4px;
+}
+
+.view {
+  margin-right: -17px;
+  margin-bottom: -17px;
+}
+.custom-scrollbars2 {
+  @apply lg:w-[760px] md:w-[695px] h-[600px];
+  overflow: hidden;
+}
+.custom-scrollbars {
+  @apply w-[300px] md:w-[650px] lg:w-[320px] h-[600px];
+  overflow: hidden;
+}
+
+.slider1:before {
+  position: absolute;
+  content: "";
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 2em;
+  width: 2em;
+  inset: 0;
+  background-color: white;
+  border-radius: 50px;
+  box-shadow: 0 10px 20px rgba(0, 0, 0, 0.4);
+  transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+}
+
+.switch1 input:checked + .slider1 {
+  background: linear-gradient(to right, #2cc8ae, #23a25d);
+  /* Replace with your gradient colors */
+}
+
+.switch1 input:focus + .slider1 {
+  box-shadow: 0 0 1px #95ffed;
+}
+
+.switch1 input:checked + .slider1:before {
+  transform: translateX(1.6em);
+}
+
+.switch1 input {
+  opacity: 0;
+  width: 0;
+  height: 0;
+}
+
+.switch1 {
+  font-size: 17px;
+  position: relative;
+  display: inline-block;
+  width: 3.5em;
+  height: 2em;
+}
+
+html {
+  scrollbar-width: thin;
+  scrollbar-color: #d6dee1 transparent;
+}
+
+.logout-button {
+  @apply w-full h-[43px] border border-root-green opacity-35 text-root-green rounded-xl;
+  transition: opacity 0.4s ease-in-out;
+}
+
+.logout-button:hover {
+  opacity: 1 !important;
+}
+
+.transborder {
+  transition: all 0.4s ease-in-out;
+}
+
+.green-button {
+  transition: opacity 0.4s ease-in-out;
+}
+
+.fadeOut {
+  opacity: 0;
+  transition: opacity 0.5s ease-out;
+}
+
+.col-id-no {
+  left: 0;
+  width: 80px;
+  position: sticky;
+}
+
+.freeze-table {
+  padding: 0;
+}
+
+.topper {
+  z-index: 10000;
+}
+.stake-modal-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-color: rgba(0, 0, 0, 0.5);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 9999;
+  transition: opacity 0.3s ease;
+}
+.background-div {
+  background-image: url("/assets/icons/green_coupon.svg");
+  background-size: contain; /* Ensures the entire SVG fits within the div */
+  background-repeat: no-repeat; /* Prevents the image from repeating */
+  background-position: center; /* Centers the SVG within the div */
+  width: 213px; /* Adjust the width as needed */
+  height: 157px; /* Adjust the height as needed */
+  display: flex; /* Enables flexbox for centering content */
+  align-items: center; /* Vertically centers the content */
+  justify-content: center; /* Horizontally centers the content */
+  color: white; /* Adjust text color as needed */
+}
+.white-div {
+  background-image: url("/assets/icons/white_coupon.svg");
+  background-size: contain; /* Ensures the entire SVG fits within the div */
+  background-repeat: no-repeat; /* Prevents the image from repeating */
+  background-position: center; /* Centers the SVG within the div */
+  width: 213px; /* Adjust the width as needed */
+  height: 157px; /* Adjust the height as needed */
+  display: flex; /* Enables flexbox for centering content */
+  align-items: center; /* Vertically centers the content */
+  justify-content: center; /* Horizontally centers the content */
+  color: white; /* Adjust text color as needed */
+}
+.fin-div {
+  background-image: url("/assets/icons/finrex_round.png");
+  background-size: contain;
+  background-repeat: no-repeat;
+  background-position: center;
+  width: 130px;
+  height: 100px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: white; /* or another color that contrasts well with the background */
+  font-size: 20px; /* Adjust as needed */
+  font-weight: bold;
+}
+
+@keyframes spins {
+  from {
+    transform: rotate(0deg);
+  }
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+.spins-animation {
+  animation: spins 6s linear infinite;
+}
+
+.stake-modal-content {
+  @apply bg-bkg;
+  border-radius: 20px;
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.15);
+  z-index: 999;
+  transform: translateY(100%);
+  animation: slide-up 0.2s ease-out forwards;
+  position: relative;
+  box-shadow: 0 4px 20px 0 rgb(0 0 0 / 10%), 0 1px 2px 0 rgb(0 0 0 / 6%);
+}
+.pincode-input-text {
+  @apply !bg-white  w-[54px] rounded-lg h-[60px] border border-[#D1D8E1] text-bl;
+}
+
+.pincode-input-text:focus {
+  @apply !bg-white w-[54px] rounded-lg h-[60px] border border-[#D1D8E1] text-bl;
+}
+.fade-enter {
+  opacity: 0;
+}
+.fade-enter-active {
+  opacity: 1;
+  transition: opacity 300ms;
+}
+.fade-exit {
+  opacity: 1;
+}
+.fade-exit-active {
+  opacity: 0;
+  transition: opacity 300ms;
+}
+
+.pincode-input-text {
+  @apply !w-[62px] !h-[62px] !rounded-xl text-[28px] caret-root-green   font-semibold text-bl !border-none !bg-log-bkg !select-none;
+}
+
+.pincode-input-text:focus {
+  @apply !w-[62px] !h-[62px] !rounded-xl text-[28px] font-semibold text-bl !border-none !bg-log-bkg !select-none;
+}
+.nav-but {
+  position: relative;
+  background-color: transparent;
+  border: none;
+  @apply text-bl;
+  cursor: pointer;
+  padding: 10px;
+  outline: none;
+  overflow: hidden;
+}
+
+.custom-alerti {
+  background-color: #b91c1c;
+  color: white;
+  top: 0;
+  left: 0;
+  right: 0;
+  font-size: 20px;
+  font-weight: 600;
+  padding: 20px;
+  bottom: 0;
+  border-radius: 20px;
+  position: absolute;
+  z-index: 1000;
+  /* Ensure it's above other content */
+  animation: fadeOut 2s forwards;
+  /* Animation lasts 1 second then removes the element */
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  /* Center the alerti message */
+}
+
+/* Modal.css */
+.about-modal-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-color: rgba(0, 0, 0, 0.5);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 9999;
+  transition: opacity 0.3s ease;
+}
+
+.auth-modal-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-color: rgba(0, 0, 0, 0.5);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 9999;
+  transition: opacity 0.3s ease;
+}
+
+.auth-modal {
+  background-color: #f3f4f6; /* Example background color */
+  border-radius: 20px;
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.15);
+  z-index: 999;
+  position: absolute;
+  width: 100%; /* Fill parent container width */
+  height: 100%; /* Fill parent container height */
+}
+
+.auth-modal-content {
+  /* Define your modal content styles here */
+  width: 100%;
+  height: 100%;
+}
+
+@keyframes slide-up {
+  from {
+    transform: translateY(100%);
+    /* Start below the screen */
+  }
+
+  to {
+    transform: translateY(0);
+    /* End at the very bottom of the parent container */
+  }
+}
+:root:not(.theme-dark) {
+  --tv-color-platform-background: #d1c4e9;
+  --tv-color-pane-background: rgb(251, 223, 244);
+  --tv-color-toolbar-button-background-hover: rgb(244, 143, 177);
+  --tv-color-toolbar-button-background-expanded: rgb(244, 143, 177);
+  --tv-color-toolbar-button-background-active: rgb(249, 185, 233);
+  --tv-color-toolbar-button-background-active-hover: rgb(244, 143, 177);
+  --tv-color-toolbar-button-text: rgb(136, 24, 79);
+  --tv-color-toolbar-button-text-hover: rgb(74, 20, 140);
+  --tv-color-toolbar-button-text-active: red;
+  --tv-color-toolbar-button-text-active-hover: red;
+  --tv-color-item-active-text: rgb(6, 6, 255);
+  --tv-color-toolbar-toggle-button-background-active: red;
+  --tv-color-toolbar-toggle-button-background-active-hover: magenta;
+  --tv-color-toolbar-divider-background: rgb(251, 223, 244);
+  --tv-color-toolbar-save-layout-loader: rgb(106, 109, 120);
+
+  --tv-color-popup-background: rgb(241, 188, 225);
+  --tv-color-popup-element-text: rgb(136, 24, 79);
+  --tv-color-popup-element-text-hover: rgb(74, 20, 140);
+  --tv-color-popup-element-background-hover: rgb(244, 143, 177);
+  --tv-color-popup-element-divider-background: rgb(251, 223, 244);
+  --tv-color-popup-element-secondary-text: rgb(74, 20, 140);
+  --tv-color-popup-element-hint-text: rgb(74, 20, 140);
+  --tv-color-popup-element-text-active: rgb(6, 6, 255);
+  --tv-color-popup-element-background-active: red;
+  --tv-color-popup-element-toolbox-text: rgb(136, 24, 79);
+  --tv-color-popup-element-toolbox-text-hover: rgb(74, 20, 140);
+  --tv-color-popup-element-toolbox-text-active-hover: rgb(74, 20, 140);
+  --tv-color-popup-element-toolbox-background-hover: rgb(222, 89, 132);
+  --tv-color-popup-element-toolbox-background-active-hover: magenta;
+}
+
+.theme-dark:root {
+  --tv-color-platform-background: #d1c4e9;
+  --tv-color-pane-background: rgb(251, 223, 244);
+  --tv-color-toolbar-button-background-hover: rgb(244, 143, 177);
+  --tv-color-toolbar-button-background-expanded: rgb(244, 143, 177);
+  --tv-color-toolbar-button-background-active: rgb(249, 185, 233);
+  --tv-color-toolbar-button-background-active-hover: rgb(244, 143, 177);
+  --tv-color-toolbar-button-text: rgb(136, 24, 79);
+  --tv-color-toolbar-button-text-hover: rgb(74, 20, 140);
+  --tv-color-toolbar-button-text-active: red;
+  --tv-color-toolbar-button-text-active-hover: red;
+  --tv-color-item-active-text: rgb(6, 255, 6);
+  --tv-color-toolbar-toggle-button-background-active: red;
+  --tv-color-toolbar-toggle-button-background-active-hover: magenta;
+  --tv-color-toolbar-divider-background: rgb(251, 223, 244);
+  --tv-color-toolbar-save-layout-loader: rgb(134, 137, 147);
+
+  --tv-color-popup-background: rgb(241, 188, 225);
+  --tv-color-popup-element-text: rgb(136, 24, 79);
+  --tv-color-popup-element-text-hover: rgb(74, 20, 140);
+  --tv-color-popup-element-background-hover: rgb(244, 143, 177);
+  --tv-color-popup-element-divider-background: rgb(251, 223, 244);
+  --tv-color-popup-element-secondary-text: rgb(74, 20, 140);
+  --tv-color-popup-element-hint-text: rgb(74, 20, 140);
+  --tv-color-popup-element-text-active: rgb(6, 6, 255);
+  --tv-color-popup-element-background-active: red;
+  --tv-color-popup-element-toolbox-text: rgb(136, 24, 79);
+  --tv-color-popup-element-toolbox-text-hover: rgb(74, 20, 140);
+  --tv-color-popup-element-toolbox-text-active-hover: rgb(74, 20, 140);
+  --tv-color-popup-element-toolbox-background-hover: rgb(222, 89, 132);
+  --tv-color-popup-element-toolbox-background-active-hover: magenta;
+}
+@keyframes slide-down {
+  from {
+    transform: translateY(0%);
+    /* Start below the screen */
+  }
+
+  to {
+    transform: translateY(100%);
+    /* End at the very bottom of the parent container */
+  }
+}
+
+.about-modal-content {
+  @apply bg-bkg;
+  border-radius: 20px;
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.15);
+  z-index: 999;
+  transform: translateY(100%);
+  animation: slide-up 0.2s ease-out forwards;
+  width: 392px;
+  position: relative;
+  box-shadow: 0 4px 20px 0 rgb(0 0 0 / 10%), 0 1px 2px 0 rgb(0 0 0 / 6%);
+  height: 327px;
+}
+.auth-parent-container {
+  position: relative;
+  /* Define width, height, and any other styles for your container here */
+  height: 329px;
+  /* Example height */
+  border-radius: 20px;
+  overflow: hidden;
+  /* Add any additional styles you might need for the parent container */
+}
+
+.withdraw-modal-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-color: rgba(0, 0, 0, 0.5);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 9999;
+  transition: opacity 0.3s ease;
+}
+.withdraw-modal-content {
+  @apply bg-bkg;
+  border-radius: 20px;
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.15);
+  z-index: 999;
+  transform: translateY(100%);
+  animation: slide-up 0.2s ease-out forwards;
+  width: 450px;
+  position: relative;
+  box-shadow: 0 4px 20px 0 rgb(0 0 0 / 10%), 0 1px 2px 0 rgb(0 0 0 / 6%);
+  height: 270px;
+}
+.error-message {
+  transition: opacity 0.4s ease-in-out;
+}
+
+#upload-container {
+  display: inline-block;
+  cursor: pointer;
+  transition: transform 0.3s;
+}
+
+#upload-container:hover {
+  transform: scale(1.1);
+}
+
+#upload-container:active {
+  transform: scale(0.95);
+}
+@keyframes avatarUpdate {
+  0% {
+    transform: scale(0.8);
+    opacity: 0;
+  }
+  50% {
+    transform: scale(1.1);
+    opacity: 0.5;
+  }
+  100% {
+    transform: scale(1);
+    opacity: 1;
+  }
+}
+
+.avatar-image {
+  animation: avatarUpdate 0.6s ease-in-out;
+}
+
+.avatar-icon {
+  transition: transform 0.2s ease-in-out;
+}
+
+.avatar-icon:hover {
+  transform: scale(1.1);
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+}
+
+.avatar-icon:active {
+  transform: scale(0.95);
+}
+
+#upload-icon {
+  transition: transform 0.2s ease-in-out;
+}
+
+#upload-icon:hover {
+  transform: scale(1.1);
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+}
+
+#upload-icon:active {
+  transform: scale(0.95);
+}
+
+.buycr-modal-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-color: rgba(0, 0, 0, 0.5);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 9999;
+  transition: opacity 0.3s ease;
+}
+.buycr-modal-content {
+  @apply bg-bkg;
+  border-radius: 20px;
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.15);
+  z-index: 999;
+  transform: translateY(100%);
+  animation: slide-up 0.2s ease-out forwards;
+  width: 392px;
+  position: relative;
+  box-shadow: 0 4px 20px 0 rgb(0 0 0 / 10%), 0 1px 2px 0 rgb(0 0 0 / 6%);
+  height: 360px;
+}
+.copyt-modal-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-color: rgba(0, 0, 0, 0.5);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 9999;
+  transition: opacity 0.3s ease;
+}
+
+.copyt-modal-content {
+  @apply bg-bkg;
+  border-radius: 20px;
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.15);
+  z-index: 999;
+  transform: translateY(100%);
+  animation: slide-up 0.2s ease-out forwards;
+  width: 400px;
+  position: relative;
+  box-shadow: 0 4px 20px 0 rgb(0 0 0 / 10%), 0 1px 2px 0 rgb(0 0 0 / 6%);
+  height: 270px;
+}
+.qr-modal-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-color: rgba(0, 0, 0, 0.5);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 9999;
+  transition: opacity 0.3s ease;
+}
+
+.qr-modal-content {
+  @apply bg-bkg;
+  border-radius: 20px;
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.15);
+  z-index: 999;
+  transform: translateY(100%);
+  animation: slide-up 0.2s ease-out forwards;
+  width: 220px;
+  position: relative;
+  box-shadow: 0 4px 20px 0 rgb(0 0 0 / 10%), 0 1px 2px 0 rgb(0 0 0 / 6%);
+  height: 240px;
+}
+.cancelall-modal-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-color: rgba(0, 0, 0, 0.5);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 9999;
+  transition: opacity 0.3s ease;
+}
+.notification-item.disappear {
+  animation: slide-out-left 0.5s forwards;
+}
+
+@keyframes slide-out-left {
+  0% {
+    transform: translateX(0);
+    opacity: 1;
+  }
+  100% {
+    transform: translateX(-100%);
+    opacity: 0;
+  }
+}
+
+.closing {
+  max-height: 0;
+  opacity: 0;
+  transition: max-height 0.5s ease, opacity 0.5s ease;
+}
+
+.cancelall-modal-content {
+  @apply bg-bkg;
+  border-radius: 20px;
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.15);
+  z-index: 999;
+  transform: translateY(100%);
+  animation: slide-up 0.2s ease-out forwards;
+  width: 400px;
+  position: relative;
+  box-shadow: 0 4px 20px 0 rgb(0 0 0 / 10%), 0 1px 2px 0 rgb(0 0 0 / 6%);
+  height: 280px;
+}
+.googleqr-modal-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-color: rgba(0, 0, 0, 0.5);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 9999;
+  transition: opacity 0.3s ease;
+}
+
+.googleqr-modal-content {
+  @apply bg-bkg;
+  border-radius: 20px;
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.15);
+  z-index: 999;
+  transform: translateY(100%);
+  animation: slide-up 0.2s ease-out forwards;
+  width: 300px;
+  position: relative;
+  box-shadow: 0 4px 20px 0 rgb(0 0 0 / 10%), 0 1px 2px 0 rgb(0 0 0 / 6%);
+  height: 300px;
+}
+.pass-modal-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-color: rgba(0, 0, 0, 0.5);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 9999;
+  transition: opacity 0.3s ease;
+}
+::placeholder {
+  color: #858585 !important; /* Grey color for placeholder */
+  opacity: 1; /* Ensure full opacity for placeholder text */
+}
+
+.pass-modal-content {
+  @apply bg-bkg;
+  border-radius: 20px;
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.15);
+  z-index: 999;
+  transform: translateY(100%);
+  animation: slide-up 0.2s ease-out forwards;
+  width: 326px;
+  position: relative;
+  box-shadow: 0 4px 20px 0 rgb(0 0 0 / 10%), 0 1px 2px 0 rgb(0 0 0 / 6%);
+  height: 412px;
+}
+
+textarea {
+  resize: none;
+}
+
+.avatar-modal-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-color: rgba(0, 0, 0, 0.5);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 9999;
+  transition: opacity 0.3s ease;
+}
+
+.avatar-modal-content {
+  @apply bg-bkg;
+  border-radius: 20px;
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.15);
+  z-index: 999;
+  transform: translateY(100%);
+  animation: slide-up 0.2s ease-out forwards;
+  width: 308px;
+  position: relative;
+  box-shadow: 0 4px 20px 0 rgb(0 0 0 / 10%), 0 1px 2px 0 rgb(0 0 0 / 6%);
+  height: 352px;
+}
+
+.fullname-modal-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-color: rgba(0, 0, 0, 0.5);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 9999;
+  transition: opacity 0.3s ease;
+}
+
+.fullname-modal-content {
+  @apply bg-bkg;
+  border-radius: 20px;
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.15);
+  z-index: 999;
+  transform: translateY(100%);
+  animation: slide-up 0.2s ease-out forwards;
+  width: 326px;
+  position: relative;
+  box-shadow: 0 4px 20px 0 rgb(0 0 0 / 10%), 0 1px 2px 0 rgb(0 0 0 / 6%);
+  height: 220px;
+}
+.custom-logo-filter {
+  filter: grayscale(1) sepia(1) hue-rotate(0deg) brightness(0.9) contrast(1.2);
+}
+.hover\:filter-none:hover {
+  filter: none;
+}
+
+.alerti {
+  position: fixed;
+  right: -100%;
+  top: 80%;
+  transform: translateY(-50%);
+  padding: 0.5rem 1rem;
+
+  transition: all 0.5s ease-in-out;
+}
+.alertiveriff {
+  position: fixed;
+  right: -100%;
+  top: 90%;
+  transform: translateY(-50%);
+  background-color: #23a25d;
+  font-weight: 500;
+  color: white;
+  padding: 0.5rem 1rem;
+  border-radius: 0.5rem;
+  transition: right 0.5s ease-in-out;
+}
+
+input[type="number"] {
+  -moz-appearance: textfield;
+}
+.alertiveriff.slide-in {
+  right: 1%;
+}
+
+.alertiveriff.slide-out {
+  right: -20%;
+}
+.alerti.slide-in {
+  right: 1%;
+}
+
+.alerti.slide-out {
+  right: -20%;
+  visibility: hidden;
+}
+
+.notification-item div {
+  transition: all 0.4s ease-in-out;
+}
+
+/* For Chrome, Safari, Edge, Opera */
+input[type="number"]::-webkit-inner-spin-button,
+input[type="number"]::-webkit-outer-spin-button {
+  -webkit-appearance: none;
+  margin: 0;
+}
+
+.slide-in {
+  right: 1%;
+}
+
+.slide-out {
+  right: -100%;
+}
+
+@keyframes slide-up {
+  0% {
+    transform: translateY(100%);
+  }
+
+  90% {
+    transform: translateY(-5%);
+  }
+
+  100% {
+    transform: translateY(0%);
+  }
+}
+
+@keyframes fadeOut {
+  0% {
+    opacity: 0;
+  }
+
+  /* Start fully transparent */
+  60% {
+    opacity: 1;
+  }
+
+  /* Fully visible */
+  70% {
+    opacity: 0.6;
+  }
+
+  /* Start fading out */
+  100% {
+    opacity: 0;
+  }
+
+  /* Fully transparent again */
+}
+.menu-enter {
+  opacity: 0;
+  transform: translateY(-10%);
+}
+.menu-enter-active {
+  opacity: 1;
+  transform: translateY(0);
+  transition: opacity 300ms, transform 300ms;
+}
+.menu-exit {
+  opacity: 1;
+  transform: translateY(0);
+}
+.menu-exit-active {
+  opacity: 0;
+  transform: translateY(-10%);
+  transition: opacity 300ms, transform 300ms;
+}
+@keyframes modalFadeIn {
+  from {
+    opacity: 0;
+    transform: scale(0.95);
+  }
+  to {
+    opacity: 1;
+    transform: scale(1);
+  }
+}
+
+@keyframes modalFadeOut {
+  from {
+    opacity: 1;
+    transform: scale(1);
+  }
+  to {
+    opacity: 0;
+    transform: scale(0.95);
+  }
+}
+
+.modal-animate-in {
+  animation: modalFadeIn 0.3s ease-out;
+}
+
+.modal-animate-out {
+  animation: modalFadeOut 0.3s ease-out;
+}
+
+.user-enter {
+  opacity: 0;
+  transform: translateX(-10%);
+}
+.user-enter-active {
+  opacity: 1;
+  transform: translateX(0);
+  transition: opacity 300ms, transform 300ms;
+}
+.user-exit {
+  opacity: 1;
+  transform: translateX(0);
+}
+.user-exit-active {
+  opacity: 0;
+  transform: translateX(-10%);
+  transition: opacity 300ms, transform 300ms;
+}
+
+.submenu-enter {
+  max-height: 0;
+  opacity: 0;
+  overflow: hidden;
+}
+.submenu-enter-active {
+  max-height: 100px; /* Adjust as needed */
+  opacity: 1;
+  transition: max-height 300ms ease-in, opacity 300ms ease-in;
+}
+.submenu-exit {
+  max-height: 100px; /* Adjust as needed */
+  opacity: 1;
+}
+.submenu-exit-active {
+  max-height: 0;
+  opacity: 0;
+  transition: max-height 300ms ease-in, opacity 300ms ease-in;
+}
+
+.about-div {
+  background-image: url("/assets/icons/about_bg.png");
+  background-size: cover; /* Adjusts the image to cover the entire container */
+  background-position: center; /* Centers the image */
+  background-repeat: no-repeat; /* Prevents the image from repeating */
+  height: 100vh; /* Full height */
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.activesecbut {
+  @apply text-root-green font-medium;
+}
+
+.activesec {
+  @apply text-root-green font-medium border-b border-root-green;
+}
+
+.activesellsec {
+  @apply text-[#B91C1C] font-medium border-b border-[#B91C1C];
+}
+
+.red-button {
+  @apply text-[#B91C1C] border-[#B91C1C] border rounded-xl font-medium;
+  transition: color 0.4s ease-in-out, background-color 0.4s ease-in-out;
+}
+
+.red-button:hover {
+  @apply text-white bg-[#B91C1C];
+}
+
+.ref-hist thead th {
+  @apply text-xs text-graphite text-left;
+}
+
+.ref-hist tbody td {
+  @apply text-sm text-graphite text-left;
+}
+
+.nav-but::after {
+  content: "";
+  position: absolute;
+  bottom: -3px;
+  /* Adjust based on your button's design */
+  left: 0;
+  width: 0%;
+  /* Initial width is 0 */
+  height: 5px;
+  /* Thickness of the underline */
+  background: linear-gradient(to right, #2cc8ae, #23a25d);
+  transition: width 0.4s ease;
+}
+
+.dropdown:hover .nav-but {
+  /* Gradient text effect */
+  background: -webkit-linear-gradient(to right, #2cc8ae, #23a25d);
+  /* Chrome 10-25, Safari 5.1-6 */
+  background: linear-gradient(to right, #2cc8ae, #23a25d);
+  /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+  /* Make the text color transparent to show the background */
+  transition: background 0.4s ease;
+  /* Smooth transition for the gradient background */
+}
+
+.dropdown:hover .nav-but::after {
+  width: 100%;
+  /* Width transitions to 100% on hover */
+}
+
+body {
+  background: #f2f2f2;
+}
+
+.footerUl li {
+  @apply text-[#929BAE];
+}
+
+.footerUl {
+  @apply gap-3 flex flex-col;
+}
+
+.header {
+  position: fixed !important;
+  top: 0 !important;
+  text-align: center !important;
+  z-index: 1000 !important;
+}
+
+.video-container {
+  position: relative;
+  width: 100%;
+  overflow: hidden;
+  /* Ensures the video is clipped to the container's bounds */
+  position: relative;
+}
+
+.scaling {
+  transition: scale 0.4s;
+  width: 123px;
+}
+
+.scaling:hover {
+  scale: 1.05;
+}
+
+.video {
+  width: 100%;
+  object-fit: cover;
+  /* This makes the video cover the available space, preserving its aspect ratio */
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+}
+
+.dropdown-content {
+  position: absolute;
+  width: 300px;
+  padding: 8px;
+
+  top: 100%;
+  opacity: 0;
+  visibility: hidden;
+  transform: translateX(-20px);
+  transition: opacity 1s ease-in-out, visibility 0s linear 1s,
+    transform 1s ease-in-out;
+  border-radius: 20px;
+  @apply bg-bkg;
+  box-shadow: 0px 8px 16px 0px rgba(0, 0, 0, 0.2);
+  z-index: 1;
+}
+.linker-hover {
+  transition: all 0.3s;
+}
+.linker-hover:hover {
+  @apply bg-root-green-8;
+}
+.dropdown:hover .dropdown-content {
+  opacity: 1;
+  visibility: visible;
+  transform: translateX(0);
+  transition-delay: 0s;
+  /* Apply transition effect immediately */
+}
+
+.dropdown {
+  position: relative;
+  z-index: 1000000;
+}
+
+.overlay-text {
+  position: absolute;
+  bottom: 0px;
+  /* Center vertically */
+  left: 50%;
+  /* Center horizontally */
+  transform: translate(-50%, -50%);
+  /* Adjust for perfect centering */
+  color: white;
+  /* Text color */
+  font-size: 24px;
+  /* Text size */
+  text-align: center;
+}
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+.fade-in {
+  animation: fadeInAnimation 1s;
+  opacity: 1;
+}
+
+.fade-out {
+  animation: fadeOutAnimation 1s;
+  opacity: 0;
+}
+
+@keyframes fadeInAnimation {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+
+@keyframes fadeOutAnimation {
+  from {
+    opacity: 1;
+  }
+  to {
+    display: none;
+    opacity: 0;
+  }
+}
+@keyframes slideInFromLeft {
+  0% {
+    transform: translateX(-100%);
+  }
+  99% {
+    height: auto;
+  }
+  100% {
+    transform: translateX(0);
+  }
+}
+
+@keyframes slideOutToRight {
+  0% {
+    transform: translateX(0);
+  }
+
+  100% {
+    transform: translateX(100%);
+    height: 0;
+  }
+}
+@keyframes slideInFromRight {
+  0% {
+    transform: translateX(100%);
+    height: 0;
+  }
+
+  100% {
+    transform: translateX(0%);
+    height: 0;
+  }
+}
+@keyframes slideOutToLeft {
+  0% {
+    transform: translateX(0%);
+  }
+  99% {
+    height: auto;
+  }
+  to {
+    transform: translateX(-100%);
+  }
+}
+.slide-in-from-left {
+  animation: slideInFromLeft 1s forwards;
+}
+
+.slide-out-to-right {
+  animation: slideOutToRight 1s forwards;
+}
+
+/* Ensure the existing animations for slide-in-from-right and slide-out-to-left are correct */
+.slide-in-from-right {
+  animation: slideInFromRight 1s forwards;
+}
+
+.slide-out-to-left {
+  animation: slideOutToLeft 1s forwards;
+}
+body {
+  @apply bg-bkg;
+}
+
+.crypto-block {
+  @apply border-root-green border rounded-[20px] flex items-start flex-col pl-10 py-10 gap-5;
+}
+.toggle-container-profits {
+  display: flex;
+  align-items: center;
+  @apply bg-log-bkg;
+  border-radius: 25px;
+  width: 200px; /* Adjust the width to your preference */
+  justify-content: space-between;
+  position: relative;
+  height: 40px; /* Set a fixed height */
+}
+
+.toggle-option-profits {
+  flex: 1;
+  text-align: center;
+  cursor: pointer;
+  padding: 10px 0; /* Adjust the padding to fit your desired height */
+  z-index: 1;
+  @apply text-gr text-sm font-medium;
+  user-select: none; /* Prevent text selection on click */
+}
+
+.toggle-option-profits.active {
+  color: #23a25d;
+}
+
+.toggle-slider-profits {
+  position: absolute;
+  width: 50%; /* Adjust width if needed */
+  height: 100%; /* Ensure the slider fits within the container's padding */
+  @apply bg-bkg;
+  border-radius: 25px;
+  transition: transform 0.3s ease;
+  box-sizing: border-box; /* Ensure padding and border are included in the height and width */
+}
+.toggle-container-profits {
+  display: flex;
+  align-items: center;
+  @apply bg-log-bkg;
+  border-radius: 25px;
+  width: 300px; /* Adjust the width to your preference */
+  position: relative;
+  height: 40px;
+}
